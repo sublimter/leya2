@@ -417,11 +417,16 @@ typedef enum {
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (mnType == NOTIFY_CHAT) {
-        return UITableViewCellEditingStyleDelete;
-    }
+//    if (mnType == NOTIFY_CHAT) {
+//        return UITableViewCellEditingStyleDelete;
+//    }
+//    else {
+//        return UITableViewCellEditingStyleDelete;
+//    }
+//    return UITableViewCellEditingStyleNone;
     
-    return UITableViewCellEditingStyleNone;
+    return UITableViewCellEditingStyleDelete;
+
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -478,13 +483,25 @@ typedef enum {
 {
     if (buttonIndex == 1)
     {
-        CommonUtils *utils = [CommonUtils sharedObject];
-        ChatData *cData = [utils.maryChatInfo objectAtIndex:mnCurChatIndex];
-        
-        [[CDSessionManager sharedInstance] deleteMessagesForBlogId:cData.mBlog.objectId];
-        
-        [utils.maryChatInfo removeObjectAtIndex:mnCurChatIndex];
-        [self.mTableView reloadData];
+        if (mnType == NOTIFY_CHAT) {
+            CommonUtils *utils = [CommonUtils sharedObject];
+            ChatData *cData = [utils.maryChatInfo objectAtIndex:mnCurChatIndex];
+            
+            [[CDSessionManager sharedInstance] deleteMessagesForBlogId:cData.mBlog.objectId];
+            
+            [utils.maryChatInfo removeObjectAtIndex:mnCurChatIndex];
+            [self.mTableView reloadData];
+        }
+        else {
+            CommonUtils *utils = [CommonUtils sharedObject];
+            
+            NotificationData *notifyData = [utils.maryChatInfo objectAtIndex:mnCurChatIndex];
+            [[CDSessionManager sharedInstance] deleteMessagesForBlogId:notifyData.blog.objectId];
+            [utils.maryChatInfo removeObjectAtIndex:mnCurChatIndex];
+            [self.mTableView reloadData];
+            
+        }
+
     }
 }
 
