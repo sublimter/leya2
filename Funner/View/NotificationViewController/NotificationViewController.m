@@ -20,6 +20,7 @@
 #import "NotificationData.h"
 
 #import "NotificationChatCell.h"
+
 #import "NotificationCommentCell.h"
 
 #import "CDSessionManager.h"
@@ -419,6 +420,8 @@ typedef enum {
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (mnType == NOTIFY_CHAT) {
         return UITableViewCellEditingStyleDelete;
+    }else {
+        return UITableViewCellEditingStyleDelete;
     }
     
     return UITableViewCellEditingStyleNone;
@@ -478,13 +481,32 @@ typedef enum {
 {
     if (buttonIndex == 1)
     {
-        CommonUtils *utils = [CommonUtils sharedObject];
-        ChatData *cData = [utils.maryChatInfo objectAtIndex:mnCurChatIndex];
-        
-        [[CDSessionManager sharedInstance] deleteMessagesForBlogId:cData.mBlog.objectId];
-        
-        [utils.maryChatInfo removeObjectAtIndex:mnCurChatIndex];
-        [self.mTableView reloadData];
+        if (mnType == NOTIFY_CHAT) {
+            CommonUtils *utils = [CommonUtils sharedObject];
+            ChatData *cData = [utils.maryChatInfo objectAtIndex:mnCurChatIndex];
+            
+            [[CDSessionManager sharedInstance] deleteMessagesForBlogId:cData.mBlog.objectId];
+            
+            [utils.maryChatInfo removeObjectAtIndex:mnCurChatIndex];
+            [self.mTableView reloadData];
+
+        }else if(mnType == NOTIFY_COMMENT){
+            CommonUtils *utils = [CommonUtils sharedObject];
+            NotificationData *cData = [maryNotifyData objectAtIndex:mnCurChatIndex];
+            
+            [[CDSessionManager sharedInstance] deleteMessagesForBlogId:cData.blog.objectId];
+            
+            [maryNotifyData removeObjectAtIndex:mnCurChatIndex];
+            [self.mTableView reloadData];
+
+        }
+//        CommonUtils *utils = [CommonUtils sharedObject];
+//        ChatData *cData = [utils.maryChatInfo objectAtIndex:mnCurChatIndex];
+//        
+//        [[CDSessionManager sharedInstance] deleteMessagesForBlogId:cData.mBlog.objectId];
+//        
+//        [utils.maryChatInfo removeObjectAtIndex:mnCurChatIndex];
+//        [self.mTableView reloadData];
     }
 }
 

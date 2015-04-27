@@ -324,6 +324,7 @@
 		5EFC064A1A3981D800150E28 /* UIImageView+HighlightedWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EFC06351A3981D800150E28 /* UIImageView+HighlightedWebCache.m */; };
 		5EFC064B1A3981D800150E28 /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EFC06371A3981D800150E28 /* UIImageView+WebCache.m */; };
 		5EFC064C1A3981D800150E28 /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EFC06391A3981D800150E28 /* UIView+WebCacheOperation.m */; };
+		758892B71AEB6D30004E03A6 /* LeanCloudViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 758892B61AEB6D30004E03A6 /* LeanCloudViewController.m */; };
 		D20357BC1AD9001A00F50284 /* libPods-Funner.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D20357BB1AD9001A00F50284 /* libPods-Funner.a */; };
 /* End PBXBuildFile section */
 
@@ -803,6 +804,8 @@
 		5EFC06371A3981D800150E28 /* UIImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebCache.m"; sourceTree = "<group>"; };
 		5EFC06381A3981D800150E28 /* UIView+WebCacheOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WebCacheOperation.h"; sourceTree = "<group>"; };
 		5EFC06391A3981D800150E28 /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
+		758892B51AEB6D30004E03A6 /* LeanCloudViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeanCloudViewController.h; sourceTree = "<group>"; };
+		758892B61AEB6D30004E03A6 /* LeanCloudViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeanCloudViewController.m; sourceTree = "<group>"; };
 		C7C437E28E96E1433ED443B9 /* Pods-Funner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Funner.release.xcconfig"; path = "Pods/Target Support Files/Pods-Funner/Pods-Funner.release.xcconfig"; sourceTree = "<group>"; };
 		D20357BB1AD9001A00F50284 /* libPods-Funner.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-Funner.a"; path = "build/Debug-iphoneos/libPods-Funner.a"; sourceTree = "<group>"; };
 		F8094F9204101E0500DC04DB /* Pods-Funner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Funner.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Funner/Pods-Funner.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1297,6 +1300,8 @@
 				009E38FC1A07E21C0061E3FF /* View */,
 				009E38D41A07E0E00061E3FF /* AppDelegate.h */,
 				009E38D51A07E0E00061E3FF /* AppDelegate.m */,
+				758892B51AEB6D30004E03A6 /* LeanCloudViewController.h */,
+				758892B61AEB6D30004E03A6 /* LeanCloudViewController.m */,
 				009E38D71A07E0E00061E3FF /* Main.storyboard */,
 				009E38DD1A07E0E00061E3FF /* Images.xcassets */,
 				009E38FA1A07E21C0061E3FF /* Resource */,
@@ -2167,6 +2172,7 @@
 			files = (
 				5EDAB0031A750BA2006B8617 /* MainCagtegoryCell.m in Sources */,
 				5EFC06431A3981D800150E28 /* SDWebImageDownloaderOperation.m in Sources */,
+				758892B71AEB6D30004E03A6 /* LeanCloudViewController.m in Sources */,
 				004C560B1A0F5987005B6BE9 /* NewFriendViewController.m in Sources */,
 				00A82D941A2053C50071A8D6 /* CategoryData.m in Sources */,
 				5E3549191A58E28D00B0ABCB /* FMDatabase.m in Sources */,

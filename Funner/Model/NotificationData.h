@@ -13,7 +13,8 @@
 typedef enum {
     NOTIFICATION_LIKE = 0,
     NOTIFICATION_COMMENT,
-    NOTIFICATION_SUGGEST
+    NOTIFICATION_SUGGEST,
+    NOTIFICATION_REPLY
 } NotificationType;
 
 @class BlogData;

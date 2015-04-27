@@ -37,8 +37,20 @@
     [self.mLblContent setFont:[UIFont systemFontOfSize:13]];
     
     self.mLblContent.verticalAlignment = TTTAttributedLabelVerticalAlignmentTop;
-    
     self.mfHeight = 0;
+    self.btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.btn.frame = CGRectMake(self.mLblContent.frame.origin.x, self.mLblContent.frame.origin.y, self.mLblContent.frame.size.width, self.mLblContent.frame.size.height);
+    self.btn.backgroundColor = [UIColor clearColor];
+    
+    [self.btn setTitle:@"" forState:UIControlStateNormal];
+    [self.btn.titleLabel setFont:[UIFont systemFontOfSize:13]];
+    //    [self.btn addTarget:self action:@selector(btnClick) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:self.btn];
+    
+    UITextField *test = [UITextField alloc];
+    //    test.borderStyle = UITextBorderStyleRoundedRect;
+    //    [self addSubview:test];
+    test.delegate = self;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -59,7 +71,9 @@
         aryComment = data.marySuggestData;
         [self.mImgIcon setImage:[UIImage imageNamed:@"home_comment_gray.png"]];
     }
-    
+    else if (commentType == NOTIFICATION_REPLY) {
+        aryComment = data.maryReplyData;
+    }
     if (!aryComment) {
         return;
     }

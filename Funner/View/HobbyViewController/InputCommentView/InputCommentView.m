@@ -11,6 +11,8 @@
 #import "NotificationData.h"
 #import "UserData.h"
 #import "BlogData.h"
+#import "HobbyTableViewCell.h"
+#import "BlogCommentCell1.h"
 
 @interface InputCommentView() <UITextFieldDelegate>
 
@@ -44,6 +46,13 @@
         [self.mImgIcon setImage:[UIImage imageNamed:@"home_comment_white.png"]];
         [self.mTxtComment setPlaceholder:@"请输入你的建议"];
     }
+    else if (mnCommentType == NOTIFICATION_REPLY) {
+        
+//        [self.mTxtComment setPlaceholder:[NSString stringWithFormat:@"回复:%@",self.user]];
+        [self.mTxtComment setPlaceholder:@"请输入你的回复:"];
+
+    }
+    
 }
 //评论按钮的点击事件
 - (IBAction)onButSend:(id)sender {
@@ -80,10 +89,15 @@
             else if (self.mnCommentType == NOTIFICATION_SUGGEST) {
                 [self.mBlogData.marySuggestData addObject:notifyObj];
             }
+            else if (self.mnCommentType == NOTIFICATION_REPLY) {
+                [self.mBlogData.maryReplyData addObject:notifyObj];
+            }
+
             
             AVRelation *relation = self.mBlogData.commentobject;
             [relation addObject:notifyObj];
-    
+            
+
             // set popularity
             [self.mBlogData incrementKey:@"likecomment"];
             [self.mBlogData calculatePopularity];

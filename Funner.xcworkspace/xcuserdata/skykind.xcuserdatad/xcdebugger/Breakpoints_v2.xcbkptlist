@@ -9,12 +9,60 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Funner/View/HobbyViewController/InputCommentView/InputCommentView.m"
-            timestampString = "450264207.147662"
+            filePath = "Funner/View/ChatViewController/MessageViewController/MessageViewController.m"
+            timestampString = "450349468.833762"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "68"
-            endingLineNumber = "68"
+            startingLineNumber = "436"
+            endingLineNumber = "436"
+            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Funner/View/HobbyViewController/InputCommentView/InputCommentView.m"
+            timestampString = "451797126.30851"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "97"
+            endingLineNumber = "97"
+            landmarkName = "-onButSend:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Funner/View/HobbyViewController/BlogCell/BlogCommentCell1.m"
+            timestampString = "451794007.92411"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
+            landmarkName = "-fillContent:indexShow:type:forHeight:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Funner/View/HobbyViewController/InputCommentView/InputCommentView.m"
+            timestampString = "451797126.30851"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "92"
+            endingLineNumber = "92"
             landmarkName = "-onButSend:"
             landmarkType = "5">
          </BreakpointContent>
@@ -25,13 +73,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Funner/View/ChatViewController/MessageViewController/MessageViewController.m"
-            timestampString = "450349468.833762"
+            filePath = "Funner/View/HobbyViewController/InputCommentView/InputCommentView.m"
+            timestampString = "451797352.239859"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "436"
-            endingLineNumber = "436"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            startingLineNumber = "89"
+            endingLineNumber = "89"
+            landmarkName = "-onButSend:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

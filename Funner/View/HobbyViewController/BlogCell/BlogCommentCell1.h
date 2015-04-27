@@ -11,8 +11,9 @@
 @class BlogData;
 @class TTTAttributedLabel;
 
-@interface BlogCommentCell1 : UITableViewCell
+@interface BlogCommentCell1 : UITableViewCell <UITextFieldDelegate,UITextViewDelegate>
 
+@property (nonatomic,strong)UIButton *btn;
 @property (nonatomic) CGFloat mfHeight;
 @property (weak, nonatomic) IBOutlet TTTAttributedLabel *mLblContent;
 

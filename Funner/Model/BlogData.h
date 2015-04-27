@@ -39,6 +39,7 @@
 
 @property (strong) NSMutableArray *maryCommentData;
 @property (strong) NSMutableArray *marySuggestData;
+@property (strong) NSMutableArray *maryReplyData;
 
 @property (nonatomic) BOOL mbIncreasedVisit;
 

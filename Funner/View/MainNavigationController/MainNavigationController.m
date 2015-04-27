@@ -16,6 +16,21 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+    [[[self.tabBarController.viewControllers objectAtIndex:2]tabBarItem]setBadgeValue:[NSString stringWithFormat:@"%li",(long)self.natifica.nCount] ];
+    
+    NSLog(@"%li",(long)self.natifica.nCount);
+    // red dot
+    //设置提醒
+    //    UILabel *badge=[[UILabel alloc]init];
+    //    badge.text = @"2";
+    //    badge.textAlignment=NSTextAlignmentCenter;
+    //    badge.frame=CGRectMake(15, 1, 20, 20);
+    //    badge.layer.cornerRadius=10;
+    //    badge.textColor=[UIColor whiteColor];
+    //    badge.backgroundColor=[UIColor greenColor];
+    //    [self.tabBar addSubview:badge];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NotificationViewController.h"
 
 @interface MainNavigationController : UINavigationController
+
+@property (strong)NotificationViewController *natifica;
+
 
 @end

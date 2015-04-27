@@ -183,7 +183,7 @@
         if (!error) {
             [self.maryCommentData removeAllObjects];
             [self.marySuggestData removeAllObjects];
-            
+            [self.maryReplyData removeAllObjects];
 //            [self addCommentData];
             
             for (NotificationData *notifyData in objects) {
@@ -195,6 +195,10 @@
                 else if (notifyData.type == NOTIFICATION_SUGGEST) {
                     [self.marySuggestData addObject:notifyData];
                 }
+                else if (notifyData.type == NOTIFICATION_REPLY) {
+                    [self.maryReplyData addObject:notifyData];
+                }
+
             }
         }
         

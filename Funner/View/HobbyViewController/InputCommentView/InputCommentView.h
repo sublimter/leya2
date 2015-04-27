@@ -20,6 +20,7 @@
 @property (strong) BlogData *mBlogData;
 @property (nonatomic) int mnCommentType;//评论类型
 @property (weak, nonatomic) IBOutlet UITextField *mTxtComment;
+@property (nonatomic, strong) NSString *user;
 
 @property (strong) id <InputCommentViewDelegate> delegate;
 

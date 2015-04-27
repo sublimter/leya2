@@ -974,6 +974,9 @@
     if (!cell) {
         BlogCommentCell1 *commentCell = (BlogCommentCell1 *)[tableView dequeueReusableCellWithIdentifier:@"BlogCommentCellID"];
         [commentCell.mLblContent setDelegate:self];
+#pragma mark -- 点击他人评论的内容进行回复
+        commentCell.btn.tag = 1000+indexPath.row;
+        [commentCell.btn addTarget:self action:@selector(onButReply:) forControlEvents:UIControlEventTouchUpInside];
         
         if (nIndex < nCommentCount) {
             [commentCell fillContent:blog indexShow:nIndex type:NOTIFICATION_COMMENT forHeight:bForHeight];
@@ -1208,6 +1211,54 @@
     [self.view endEditing:YES];
     
     mbShownViewComment = NO;
+}
+
+- (void)onButReply:(id)sender {
+
+    UIButton *btn = (UIButton *)sender;
+    NSIndexPath *indexPaht = [NSIndexPath indexPathForRow:btn.tag-1000 inSection:0];
+    BlogCommentCell1 *commentCell = (BlogCommentCell1 *)[_mTableView cellForRowAtIndexPath:indexPaht];
+    NSArray *array = [commentCell.mLblContent.text componentsSeparatedByString:@":"];
+
+    if ([UserData currentUser]) {
+        self.mViewComment.user = array[0];
+        if ([[[UserData currentUser] nickname] isEqualToString:array[0]]) {
+            NSLog(@"不能点");
+            return;
+        }
+        
+        else {
+            
+
+            self.mViewComment.mnCommentType = NOTIFICATION_REPLY;
+            self.mViewComment.mBlogData = mBlogSelected;
+            [self showCommentView];
+            
+        }
+        
+//        self.mViewComment.user = array[0];
+//        if (self.mViewComment.mnCommentType == NOTIFICATION_COMMENT) {
+//            self.mViewComment.mnCommentType = NOTIFICATION_COMMENT;
+//            self.mViewComment.mBlogData = mBlogSelected;
+//            [self showCommentView];
+//        }
+//        else {
+//            self.mViewComment.mnCommentType = NOTIFICATION_SUGGEST;
+//            self.mViewComment.mBlogData = mBlogSelected;
+//            [self showCommentView];
+//        }
+//        self.mViewComment.mnCommentType = NOTIFICATION_REPLY;
+//        self.mViewComment.mBlogData = mBlogSelected;
+//        [self showCommentView];
+    }
+    else {
+        [self performSegueWithIdentifier:@"Hobby2Signin" sender:nil];
+    }
+    
+    
+
+    
+    
 }
 
 - (void)onButComment:(id)sender {

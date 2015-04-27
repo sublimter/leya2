@@ -10,6 +10,7 @@
 
 @interface NotificationViewController : UIViewController
 
-//@property (strong) NSMutableArray *maryNotification;
+@property (strong) NSMutableArray *maryNotification;
+@property (nonatomic)NSInteger nCount;
 
 @end
