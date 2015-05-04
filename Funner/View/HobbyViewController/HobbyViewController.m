@@ -358,6 +358,8 @@
         mnCurrentCount = 0;
     }
     
+    NSArray *filterUserArray = [[NSMutableArray alloc] init];
+    
     // get blog data
     AVQuery *queryUser = [BlogData query];
     if (self.mCategory) {
@@ -369,10 +371,12 @@
     }
     else {
         if (self.mCategory) {
-            [queryUser whereKey:@"user" containedIn:[currentUser getRelatedUserArray]];
+            filterUserArray = [currentUser getRelatedUserArray];
+            //[queryUser whereKey:@"user" containedIn:[currentUser getRelatedUserArray]];
         }
         else {
-            [queryUser whereKey:@"user" containedIn:[currentUser getFriendArray]];
+            filterUserArray = [currentUser getFriendArray];
+            //[queryUser whereKey:@"user" containedIn:[currentUser getFriendArray]];
         }
     }
     
@@ -445,8 +449,29 @@
                 }
                 
                 NSInteger i;
+                bool filterUserFound = NO;
                 
                 for (BlogData *bData in objects) {
+                    
+                    if ([filterUserArray count] > 0) {
+                        // 首先检查当前blog是否存在于被筛选的用户列表中，如果是空数组，则说明不筛选
+                        BOOL userInArray = NO;
+                        for (UserData *filterUser in filterUserArray) {
+                            if ([bData.user.objectId isEqualToString: filterUser.objectId]) {
+                                userInArray = YES;
+                                filterUserFound = YES;
+                                break;
+                            }
+                        }
+                        
+                        if (!userInArray) {
+                            continue;
+                        }
+                    } else {
+                        filterUserFound = YES;
+                    }
+
+                    
                     BlogData *blogData = nil;
                     
                     // check whether this blog is existing
@@ -496,7 +521,12 @@
                         [self updateTableView];
                     }];
                 }
-//                
+                
+                if (!filterUserFound) {
+                    [self updateTableView];
+                    [self hideTableView];
+                }
+//
 //                // swapping popular blog according to created time
 //                for (i = 0; i < [maryBlog count] - 1; i++) {
 //                    BlogData *btData1 = [maryBlog objectAtIndex:i];

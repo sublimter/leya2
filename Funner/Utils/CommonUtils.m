@@ -409,19 +409,21 @@
             }
         }
         
-        AVQuery *queryFrom = [FriendData query];
-        [queryFrom whereKey:@"userfrom" containedIn:aryMutalFriend];
-        [queryFrom whereKey:@"userto" notEqualTo:currentUser];
-        [queryFrom whereKey:@"accepted" equalTo:[NSNumber numberWithBool:YES]];
+//        AVQuery *queryFrom = [FriendData query];
+//        [queryFrom whereKey:@"userfrom" containedIn:aryMutalFriend];
+//        [queryFrom whereKey:@"userto" notEqualTo:currentUser];
+//        [queryFrom whereKey:@"accepted" equalTo:[NSNumber numberWithBool:YES]];
 //        queryFrom.cachePolicy = kPFCachePolicyNetworkElseCache;
         
-        AVQuery *queryTo = [FriendData query];
-        [queryTo whereKey:@"userto" containedIn:aryMutalFriend];
-        [queryTo whereKey:@"userfrom" notEqualTo:currentUser];
-        [queryTo whereKey:@"accepted" equalTo:[NSNumber numberWithBool:YES]];
+//        AVQuery *queryTo = [FriendData query];
+//        [queryTo whereKey:@"userto" containedIn:aryMutalFriend];
+//        [queryTo whereKey:@"userfrom" notEqualTo:currentUser];
+//        [queryTo whereKey:@"accepted" equalTo:[NSNumber numberWithBool:YES]];
 //        queryTo.cachePolicy = kPFCachePolicyNetworkElseCache;
         
-        AVQuery *queryFriend = [AVQuery orQueryWithSubqueries:[NSArray arrayWithObjects:queryFrom, queryTo, nil]];
+//        AVQuery *queryFriend = [AVQuery orQueryWithSubqueries:[NSArray arrayWithObjects:queryFrom, queryTo, nil]];
+        AVQuery *queryFriend = [FriendData query];
+        [queryFriend whereKey:@"accepted" equalTo:[NSNumber numberWithBool:YES]];
         [queryFriend includeKey:@"userfrom"];
         [queryFriend includeKey:@"userto"];
         queryFriend.cachePolicy = kPFCachePolicyNetworkElseCache;
@@ -442,6 +444,8 @@
                         else if ([uftData.objectId isEqualToString:fData.userto.objectId]) {
                             uDataToAdd = fData.userfrom;
                             uDataToAdd.mUserParent = [currentUser getRelatedUserData:fData.userto friendOnly:YES];
+                        } else {
+                            continue;
                         }
                         
                         if (uDataToAdd) {

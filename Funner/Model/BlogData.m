@@ -170,7 +170,8 @@
     relation = self.commentobject;
     AVQuery *commentQuery = [relation query];
     
-    [commentQuery whereKey:@"user" containedIn:[currentUser getRelatedUserArray]];
+    //[commentQuery whereKey:@"user" containedIn:[currentUser getRelatedUserArray]];
+    [commentQuery whereKey:@"blog" equalTo: self];
     
     if (bFromCache) {
         commentQuery.cachePolicy = kPFCachePolicyCacheOnly;
