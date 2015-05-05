@@ -29,6 +29,7 @@
 
 @interface AppDelegate() <WXApiDelegate>
 
+
 @end
 
 @implementation AppDelegate

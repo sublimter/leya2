@@ -13,6 +13,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *mLblTitle;
 @property (weak, nonatomic) IBOutlet UILabel *mLblContent;
 
+
+
 @end
 
 @implementation NoticeView

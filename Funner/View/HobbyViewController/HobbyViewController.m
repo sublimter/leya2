@@ -38,6 +38,7 @@
 #import "MessageViewController.h"
 #import "MainTabbarController.h"
 
+
 @interface HobbyViewController () <EditPhotoViewDelegate, BlogCellDelegate, CustomActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, DetailViewDelegate, BlogContentDelegate, InputCommentViewDelegate, TTTAttributedLabelDelegate, UIGestureRecognizerDelegate> {
     NSMutableArray *maryBlog;
     
