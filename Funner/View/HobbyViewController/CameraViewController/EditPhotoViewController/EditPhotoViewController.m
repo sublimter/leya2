@@ -237,7 +237,7 @@ typedef enum {
     
     if (!imageData || !thumbnailImageData) {
         UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Alert"
-                                                        message:@"Invalid Image to Post"
+                                                        message:@"上传的图片不符合要求。"
                                                        delegate:nil
                                               cancelButtonTitle:@"OK"
                                               otherButtonTitles:nil];
@@ -287,12 +287,12 @@ typedef enum {
             [self onButBack:nil];
         }
         else{
-            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Alert"
-                                                            message:error.localizedDescription
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil];
-            [alert show];
+//            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Alert"
+//                                                            message:error.localizedDescription
+//                                                           delegate:nil
+//                                                  cancelButtonTitle:@"OK"
+//                                                  otherButtonTitles:nil];
+//            [alert show];
         }
     }];
 }

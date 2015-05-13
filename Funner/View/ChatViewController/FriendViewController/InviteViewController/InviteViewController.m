@@ -141,7 +141,7 @@
 }
 
 - (void)sendQQFriend {
-//    TencentOAuth *auth = [[TencentOAuth alloc] initWithAppId:@"1103822085" andDelegate:self];
+    TencentOAuth *auth = [[TencentOAuth alloc] initWithAppId:@"1104504124" andDelegate:nil];
 //    QQApiTextObject *txtObj = [QQApiTextObject objectWithText:@"邀请内容"];
     
     UIImage *imgLogo = [UIImage imageNamed:@"icon60.png"];

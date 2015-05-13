@@ -293,7 +293,7 @@
     mContactCurrent = cData;
 //    
     if(![MFMessageComposeViewController canSendText]) {
-        UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Your device doesn't support SMS!"
+        UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"您的设备不支持发送短信。"
                                                               delegate:nil
                                                      cancelButtonTitle:@"OK"
                                                      otherButtonTitles:nil];
@@ -323,7 +323,7 @@
         case MessageComposeResultFailed:
         {
             UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Error"
-                                                                   message:@"Failed to send SMS!"
+                                                                   message:@"发送短信失败!"
                                                                   delegate:nil
                                                          cancelButtonTitle:@"OK"
                                                          otherButtonTitles:nil];

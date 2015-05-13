@@ -201,12 +201,12 @@
         }
         else {
             if (error.code != kAVErrorCacheMiss) {
-                UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@""
-                                                                message:error.localizedDescription
-                                                               delegate:nil
-                                                      cancelButtonTitle:@"OK"
-                                                      otherButtonTitles:nil];
-                [alert show];
+//                UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@""
+//                                                                message:error.localizedDescription
+//                                                               delegate:nil
+//                                                      cancelButtonTitle:@"OK"
+//                                                      otherButtonTitles:nil];
+//                [alert show];
             }
             
 //            [MBProgressHUD hideHUDForView:self.selectedViewController.view animated:YES];
@@ -381,7 +381,7 @@
     else if (status == kCLAuthorizationStatusDenied)
     {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@""
-                                                            message:@"Funner can’t access your current location.\n\nTo see the places at your current location, turn on access for Funner to your location in the Settings app under Location Services."
+                                                            message:@"乐呀无法访问您的位置。\n\n若想允许访问，请在“隐私－>定位服务“中允许乐呀使用定位服务。"
                                                            delegate:self
                                                   cancelButtonTitle:nil
                                                   otherButtonTitles:@"OK", nil];

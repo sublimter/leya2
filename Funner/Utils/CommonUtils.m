@@ -223,18 +223,18 @@
             for (int j = 0; j < ABMultiValueGetCount(phoneNumbers); j++)
             {
                 //获取电话Label
-                NSString *strPhoneLabel = (__bridge NSString*)(ABMultiValueCopyLabelAtIndex(phoneNumbers, j));
+                //NSString *strPhoneLabel = (__bridge NSString*)(ABMultiValueCopyLabelAtIndex(phoneNumbers, j));
                 
-                if ([strPhoneLabel isEqualToString:(NSString *)kABPersonPhoneIPhoneLabel] ||
-                    [strPhoneLabel isEqualToString:(NSString *)kABPersonPhoneMobileLabel]) {
-                    
+//                if ([strPhoneLabel isEqualToString:(NSString *)kABPersonPhoneIPhoneLabel] ||
+//                    [strPhoneLabel isEqualToString:(NSString *)kABPersonPhoneMobileLabel]) {
+                
                     //获取該Label下的电话值
                     NSString *strPhone = (__bridge NSString*)ABMultiValueCopyValueAtIndex(phoneNumbers, j);
                     NSString *strPhoneNumber = [[strPhone componentsSeparatedByCharactersInSet:
                                                  [[NSCharacterSet decimalDigitCharacterSet] invertedSet]]
                                                 componentsJoinedByString:@""];
                     [cData.maryPhone addObject:strPhoneNumber];
-                }
+//                }
             }
             
             if ([cData.maryPhone count] > 0) {
@@ -262,12 +262,12 @@
         [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             
             if (error) {
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@""
-                                                                    message:[error localizedDescription]
-                                                                   delegate:self
-                                                          cancelButtonTitle:nil
-                                                          otherButtonTitles:@"OK", nil];
-                [alertView show];
+//                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@""
+//                                                                    message:[error localizedDescription]
+//                                                                   delegate:self
+//                                                          cancelButtonTitle:nil
+//                                                          otherButtonTitles:@"OK", nil];
+//                [alertView show];
                 
                 [self addContactUserAsFriend:objects success:success];
                 

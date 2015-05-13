@@ -1699,13 +1699,16 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 10C3F69F6A94FA991C0CAA07 /* Pods-Funner.debug.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PODS_ROOT = "$(SRCROOT)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "02016fc0-134d-4fe4-aede-81182b570209";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
@@ -1731,13 +1734,16 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 27186D5CB69A78AA1C5E5B40 /* Pods-Funner.release.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PODS_ROOT = "$(SRCROOT)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "02016fc0-134d-4fe4-aede-81182b570209";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};

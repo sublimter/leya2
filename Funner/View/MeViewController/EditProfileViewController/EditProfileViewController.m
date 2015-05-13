@@ -276,12 +276,12 @@
             [currentUser saveInBackground];
         }
         else{
-            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@""
-                                                            message:error.localizedDescription
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil];
-            [alert show];
+//            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@""
+//                                                            message:error.localizedDescription
+//                                                           delegate:nil
+//                                                  cancelButtonTitle:@"OK"
+//                                                  otherButtonTitles:nil];
+//            [alert show];
         }
     }];
     

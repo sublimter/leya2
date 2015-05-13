@@ -124,12 +124,12 @@
         if (succeeded) {
             [self startTimer];
         } else {
-            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@""
-                                                            message:[error localizedDescription]
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil];
-            [alert show];
+//            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@""
+//                                                            message:[error localizedDescription]
+//                                                           delegate:nil
+//                                                  cancelButtonTitle:@"OK"
+//                                                  otherButtonTitles:nil];
+//            [alert show];
         }
     }];
 }
@@ -164,8 +164,8 @@
             [[self navigationController] popToViewController:array[array.count-3] animated:YES];
         }
         else {
-            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [alert show];
+//            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+//            [alert show];
         }
     }];
 }
