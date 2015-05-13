@@ -205,15 +205,20 @@
 }
 
 - (void)calculatePopularity {
-    if ([self.likecomment isEqualToNumber:[NSNumber numberWithInt:0]]) {
+    
+    if ([self.maryCommentData count] == 0) {
         self.popularity = [NSNumber numberWithFloat:0];
     }
     else {
-        CGFloat fPopularity = ([self.visit floatValue] + 100) / [self.likecomment floatValue];
+        CGFloat fPopularity = ([self.visit floatValue] + 100) / [self.maryCommentData count];
         
 //        NSLog(@"visit: %f, likecomment: %f, popularity: %f", [self.visit floatValue], [self.likecomment floatValue], fPopularity);
         
         self.popularity = [NSNumber numberWithFloat:fPopularity];
+    }
+    
+    if (![self.hack_pop isEqualToNumber: [NSNumber numberWithInt: 0]]) {
+        self.popularity = [NSNumber numberWithInt: 1];
     }
 }
 

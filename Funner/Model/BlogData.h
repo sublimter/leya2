@@ -26,6 +26,7 @@
 @property (retain) NSNumber *visit;
 @property (retain) NSNumber *likecomment;
 @property (retain) NSNumber *popularity;
+@property (retain) NSNumber *hack_pop;
 
 @property (retain) NSMutableArray *maryHashTag;
 

@@ -95,12 +95,16 @@
     //
     CommonUtils *utils = [CommonUtils sharedObject];
     
-    [self.mLblPopular setHidden:YES];
+    
     
 //    NSLog(@"popularity: %f", [data.popularity floatValue]);
     
     if ([data.popularity floatValue] > 0 && [data.popularity floatValue] <= utils.mfBlogPopularity) {
         [self.mLblPopular setHidden:NO];
+        [self.mLblDate setHidden: YES];
+    }else {
+        [self.mLblPopular setHidden:YES];
+        [self.mLblDate setHidden: NO];
     }
     
     //
