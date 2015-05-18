@@ -6,6 +6,7 @@
 //
 //
 
+#import "CommonDefine.h"
 #import "DetailViewController.h"
 #import "CommentTableViewCell.h"
 #import "BlogData.h"
@@ -699,6 +700,10 @@ didSelectLinkWithTransitInformation:(NSDictionary *)components {
     if (bSucceed) {
         [self.mTableView reloadData];
         mbShoudScroll = YES;
+        
+//        NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+//        [dict setObject: self.mBlogData.user forKey:@"targetUser"];
+//        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_MESSAGE_UPDATED object:nil userInfo:dict];
     }
     else {
         [self showNotice];

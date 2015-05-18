@@ -50,9 +50,11 @@ typedef enum {
     NSInteger mnCurChatIndex;
 }
 
-@property (weak, nonatomic) IBOutlet UITableView *mTableView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *mSegment;
 @property (weak, nonatomic) IBOutlet UIImageView *mImgLogo;
+@property (weak, nonatomic) IBOutlet UILabel *unreadChatDot;
+@property (weak, nonatomic) IBOutlet UILabel *unreadCommentDot;
+
 
 @end
 
@@ -99,63 +101,100 @@ typedef enum {
   
     [super viewWillAppear:animated];
     
-    // load notification data
-    AVQuery *query = [NotificationData query];
-    [query whereKey:@"targetuser" equalTo:[UserData currentUser]];
-    [query whereKey:@"isread" equalTo:[NSNumber numberWithBool:NO]];
-    [query whereKey:@"user" notEqualTo:[UserData currentUser]];
-    [query whereKey:@"type" greaterThanOrEqualTo:@(NOTIFICATION_COMMENT)];
-    [query orderByDescending:@"createdAt"];
-    //    [query orderByAscending:@"isnew"];
-    //    [query addDescendingOrder:@"createdAt"];
-    query.cachePolicy = kPFCachePolicyCacheThenNetwork;
-    
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        
-        [maryNotifyData removeAllObjects];
-        
-        if (!error) {
-            UserData *currentUser = [UserData currentUser];
-            
-            for (NotificationData *obj in objects) {
-                obj.user = [currentUser getRelatedUserData:obj.user friendOnly:NO];
-                
-                [maryNotifyData addObject:obj];
-            }
-            
-            [self.mTableView reloadData];
-        }
-    }];
-
-    
-    // get new notification count
-//    NSInteger nCount = 0;
-//    for (NotificationData *notifyData in self.maryNotification) {
-//        if ([notifyData.isnew boolValue]) {
-//            nCount++;
-//        }
-//    }
-//    if (nCount == 0) {
-//        mnShowType = NOTIFY_ALL;
-//    }
-//    
-//    [self.mTableView reloadData];
+    [self updateNotification: nil];
     
     [self.navigationController.navigationBar setHidden:YES];
     
     mCurNotify = nil;
 }
 
+
+// Nicolas
+- (NSInteger)updateNotification: (UserData *)targetUser {
+    
+    UserData *currentUser = [UserData currentUser];
+    
+    if (!currentUser) {
+        return 0;
+    }
+    
+    if (targetUser) {
+        currentUser = targetUser;
+    }
+    
+    NSInteger __block totalUnreadCount = 0;
+    
+    [self.unreadChatDot.layer setMasksToBounds: YES];
+    [self.unreadChatDot.layer setCornerRadius: 5];
+    [self.unreadCommentDot.layer setMasksToBounds:YES];
+    [self.unreadCommentDot.layer setCornerRadius: 5];
+    
+    // 设置通知的red dot。
+    NSInteger unreadChatCount = [[CDSessionManager sharedInstance] getUnreadCountForPeerId: nil];
+    if (unreadChatCount > 0) {
+        self.unreadChatDot.text = [NSString stringWithFormat:@"%ld", unreadChatCount];
+        [self.unreadChatDot setHidden: NO];
+    } else {
+        [self.unreadChatDot setHidden: YES];
+    }
+    
+    totalUnreadCount += unreadChatCount;
+    
+    // load notification data
+    AVQuery *query = [NotificationData query];
+    [query whereKey:@"targetuser" equalTo: currentUser];
+    //[query whereKey:@"isnew" equalTo:[NSNumber numberWithBool:YES]];
+    //[query whereKey:@"user" notEqualTo:[UserData currentUser]];
+    [query whereKey:@"type" greaterThanOrEqualTo:@(NOTIFICATION_COMMENT)];
+    [query orderByDescending:@"createdAt"];
+    query.cachePolicy = kPFCachePolicyNetworkElseCache;
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        
+        [maryNotifyData removeAllObjects];
+        
+        if (!error) {
+            
+            NSInteger unreadComment = 0;
+            
+            for (NotificationData *obj in objects) {
+                obj.user = [currentUser getRelatedUserData:obj.user friendOnly:NO];
+                
+                if ([obj.isnew boolValue]) {
+                    unreadComment++;
+                }
+                
+                [maryNotifyData addObject:obj];
+            }
+            
+            if (unreadComment > 0) {
+                self.unreadCommentDot.text = [NSString stringWithFormat:@"%ld", unreadComment];
+                [self.unreadCommentDot setHidden: NO];
+                
+
+            } else {
+                [self.unreadCommentDot setHidden: YES];
+            }
+            
+            totalUnreadCount += unreadComment;
+            
+            CommonUtils *utils = [CommonUtils sharedObject];
+            UITabBarItem *item = [utils.mTabbarController.tabBar.items objectAtIndex: 2];
+            if (totalUnreadCount > 0) {
+                [item setBadgeValue:[NSString stringWithFormat:@"%ld", totalUnreadCount]];
+            } else {
+                [item setBadgeValue:nil];
+            }
+            
+            [self.mTableView reloadData];
+        }
+    }];
+    
+    return totalUnreadCount;
+}
+
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    
-    
-//    if (mCurNotify && [mCurNotify.isnew boolValue]) {
-//        mCurNotify.isnew = [NSNumber numberWithBool:NO];
-//        [mCurNotify saveInBackground];
-//
-//        mCurNotify = nil;
-//    }
     
     mnCommentType = NOTIFY_NEW;
 }
@@ -178,6 +217,8 @@ typedef enum {
             [nData saveInBackground];
         }
     }
+    
+    [self updateNotification: nil];
 }
 
 
@@ -193,6 +234,11 @@ typedef enum {
         DetailViewController *viewController = [segue destinationViewController];
         viewController.mBlogData = mCurNotify.blog;
         viewController.mNotificationData = mCurNotify;
+        
+        // 将此通知设置为已读
+        mCurNotify.isnew = [NSNumber numberWithBool:NO];
+        [mCurNotify saveInBackground];
+        
         viewController.mnCommentType = mCurNotify.type;
     }
     else if ([[segue identifier] isEqualToString:@"Notify2Message"]) {
@@ -206,6 +252,7 @@ typedef enum {
     mnType = (NotifyType)self.mSegment.selectedSegmentIndex;
     if (mnType == NOTIFY_CHAT) {
         [self setNotificationAsNotNew];
+        [self.unreadCommentDot setHidden: YES];
     }
     
     mnCommentType = NOTIFY_NEW;
@@ -224,10 +271,6 @@ typedef enum {
                 nCount++;
             }
         }
-        
-//        if (nCount < [maryNotifyData count]) {
-//            nCount++; // show more cell
-//        }
     }
     else {
         nCount = [maryNotifyData count];
@@ -322,37 +365,11 @@ typedef enum {
         cell = notifyChatCell;
     }
     else {
-//        if (mnCommentType == NOTIFY_NEW) {
-            NotificationCommentCell *notifyCommentCell = (NotificationCommentCell *)[tableView dequeueReusableCellWithIdentifier:@"NotifyCommentCellID"];
-            NotificationData *notifyData = [self getNotifyData:indexPath.row];
-            [notifyCommentCell fillContent:notifyData];
-            
-//            NSInteger nCount = 0;
-//            
-//            for (NotificationData *notifyData in maryNotifyData) {
-//                if ([notifyData.isnew boolValue]) {
-//                    if (nCount == indexPath.row) {
-////                        [notifyCell fillContent:notifyData];
-//                        cell = notifyCommentCell;
-//                        break;
-//                    }
-//                    nCount++;
-//                }
-//            }
-            
-//            if (!cell && [self getOldCount] > 0) {
-//                // show more cell
-//                cell = [tableView dequeueReusableCellWithIdentifier:@"NotificationMoreCellID"];
-//            }
-            cell = notifyCommentCell;
-//        }
-//        else {
-//            NotificationCommentCell *notifyCommentCell = (NotificationCommentCell *)[tableView dequeueReusableCellWithIdentifier:@"NotifyCommentCellID"];
-////            NotificationData *notifyData = [maryNotifyData objectAtIndex:indexPath.row];
-////            [notifyCell fillContent:notifyData];
-//            
-//            cell = notifyCommentCell;
-//        }
+        NotificationCommentCell *notifyCommentCell = (NotificationCommentCell *)[tableView dequeueReusableCellWithIdentifier:@"NotifyCommentCellID"];
+        NotificationData *notifyData = [self getNotifyData:indexPath.row];
+        [notifyCommentCell fillContent:notifyData];
+    
+        cell = notifyCommentCell;
     }
 
     return cell;
@@ -360,14 +377,6 @@ typedef enum {
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     CGFloat fHeight = 63;
-
-//    if (mnType == NOTIFY_COMMENT) {
-//        if (mnCommentType == NOTIFY_NEW) {
-//            if ([self getOldCount] > 0 && [self getRowCount] == indexPath.row + 1) {
-//                fHeight = 40;
-//            }
-//        }
-//    }
     
     return fHeight;
 }
@@ -385,45 +394,12 @@ typedef enum {
         [self performSegueWithIdentifier:@"Notify2Message" sender:nil];
     }
     else {
-//        if (mnCommentType == NOTIFY_NEW) {
         mCurNotify = [self getNotifyData:indexPath.row];
         [self gotoNotifyDetail];
-        
-//            for (NotificationData *notifyData in maryNotifyData) {
-//                if ([notifyData.isnew boolValue]) {
-//                    if (nCount == indexPath.row) {
-//                        mCurNotify = notifyData;
-//                        [self gotoNotifyDetail];
-//                        break;
-//                    }
-//                    nCount++;
-//                }
-//            }
-//
-//            if (!mCurNotify) {
-//                if ([self getOldCount] > 0 && [self getRowCount] == indexPath.row + 1) {
-//                    mnCommentType = NOTIFY_ALL;
-//                    [self.mTableView reloadData];
-//                }
-//            }
-//        }
-//        else {
-//            mCurNotify = [maryNotifyData objectAtIndex:indexPath.row];
-//            if ([mCurNotify.isnew boolValue]) {
-//                [self gotoNotifyDetail];
-//            }
-//        }
     }
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    if (mnType == NOTIFY_CHAT) {
-//        return UITableViewCellEditingStyleDelete;
-//    }
-//    else {
-//        return UITableViewCellEditingStyleDelete;
-//    }
-//    return UITableViewCellEditingStyleNone;
     
     return UITableViewCellEditingStyleDelete;
 

@@ -527,20 +527,6 @@
                     [self updateTableView];
                     [self hideTableView];
                 }
-//
-//                // swapping popular blog according to created time
-//                for (i = 0; i < [maryBlog count] - 1; i++) {
-//                    BlogData *btData1 = [maryBlog objectAtIndex:i];
-//                    BlogData *btData2 = [maryBlog objectAtIndex:i + 1];
-//                    
-//                    if ([btData1.popularity floatValue] >= utils.mfBlogPopularity &&
-//                        [btData2.popularity floatValue] >= utils.mfBlogPopularity) {
-//                        // swap
-//                        BlogData *btData = btData2;
-//                        [maryBlog setObject:btData1 atIndexedSubscript:i + 1];
-//                        [maryBlog setObject:btData atIndexedSubscript:i];
-//                    }
-//                }
             }
             else {
                 [self updateTableView];

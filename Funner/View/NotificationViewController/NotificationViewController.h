@@ -8,7 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+@class UserData;
+
 @interface NotificationViewController : UIViewController
+
+@property (weak, nonatomic) IBOutlet UITableView *mTableView;
+
+- (NSInteger)updateNotification: (UserData *)targetUser;
 
 //@property (strong) NSMutableArray *maryNotification;
 

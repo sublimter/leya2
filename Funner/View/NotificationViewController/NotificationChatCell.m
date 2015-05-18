@@ -11,6 +11,8 @@
 
 #import "ChatData.h"
 #import "UserData.h"
+#import "BlogData.h"
+#import "CDSessionManager.h"
 
 #import "UIImageView+WebCache.h"
 
@@ -21,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *mLblUser;
 @property (weak, nonatomic) IBOutlet UILabel *mLblContent;
 @property (weak, nonatomic) IBOutlet UILabel *mLblTime;
+@property (weak, nonatomic) IBOutlet UILabel *unreadChatDot;
 
 @end
 
@@ -53,6 +56,16 @@
         [self.mLblUser setText:[data.mUser getUsernameToShow]];
     }];
     
+    [self.unreadChatDot.layer setMasksToBounds:YES];
+    [self.unreadChatDot.layer setCornerRadius:7];
+    
+    NSInteger unreadCount = [[CDSessionManager sharedInstance] getUnreadCountForPeerId: data.mBlog.objectId];
+    if (unreadCount > 0) {
+        self.unreadChatDot.text = [NSString stringWithFormat:@"%ld", unreadCount];
+        [self.unreadChatDot setHidden: NO];
+    } else {
+        [self.unreadChatDot setHidden: YES];
+    }
 }
 
 @end

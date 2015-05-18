@@ -114,7 +114,7 @@ CGFloat const kJSAvatarImageSize = 50.0f; //TCOTS
 //
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(messageUpdated:) name:NOTIFICATION_MESSAGE_UPDATED object:nil];
     
-    [[CDSessionManager sharedInstance] setUnreadToReadForPeerId:self.mUser.objectId];
+    [[CDSessionManager sharedInstance] setUnreadToReadForPeerId:self.mBlog.objectId];
     
     // update the badge
     CommonUtils *utils = [CommonUtils sharedObject];

@@ -39,7 +39,7 @@ typedef enum : NSUInteger {
 - (NSArray *)getLatestMessagesForPeerId;
 
 - (NSInteger)getUnreadCountForPeerId:(NSString *)peerId;
-- (void)setUnreadToReadForPeerId:(NSString *)peerId;
+- (void)setUnreadToReadForPeerId:(NSString *)blogId;
 
 - (NSArray *)getMessagesForGroup:(NSString *)groupId;
 - (void)getHistoryMessagesForPeerId:(NSString *)peerId callback:(AVArrayResultBlock)callback;

@@ -489,17 +489,22 @@ static BOOL initialized = NO;
 }
 
 
-- (NSInteger)getUnreadCountForPeerId:(NSString *)peerId {
+- (NSInteger)getUnreadCountForPeerId:(NSString *)blogId {
     NSString *selfId = _session.peerId;
     NSInteger nRes = 0;
-    NSString *strUsername = [UserData currentUser].objectId;
     
-    if (!selfId || !strUsername) {
+    if (!selfId) {
         return 0;
     }
     
-    FMResultSet *rs = [_database executeQuery:@"select count(*) as \"unreadcount\" from \"messages\" where ((\"fromid\"=? and \"toid\"=?) or (\"fromid\"=? and \"toid\"=?)) and \"isread\"=0 and \"username\"=?"
-                         withArgumentsInArray:@[selfId, peerId, peerId, selfId, strUsername]];
+    FMResultSet *rs;
+    if (!blogId) {
+        rs = [_database executeQuery:@"select count(*) as \"unreadcount\" from \"messages\" where \"toid\"=? and \"isread\"=0" withArgumentsInArray:@[selfId]];
+    } else {
+        // 如果传入blogid，说明是获取针对某个blog的聊天
+        rs = [_database executeQuery:@"select count(*) as \"unreadcount\" from \"messages\" where \"toid\"=? and \"isread\"=0 and \"blog\"=?" withArgumentsInArray:@[selfId, blogId]];
+    }
+
     while ([rs next]) {
         nRes = [rs intForColumn:@"unreadcount"];
     }
@@ -507,12 +512,11 @@ static BOOL initialized = NO;
     return nRes;
 }
 
-- (void)setUnreadToReadForPeerId:(NSString *)peerId {
+- (void)setUnreadToReadForPeerId: (NSString *)blogId {
     NSString *selfId = _session.peerId;
-    NSString *strUsername = [UserData currentUser].objectId;
     
-    [_database executeUpdate:@"update \"messages\" set \"isread\"=1 where ((\"fromid\"=? and \"toid\"=?) or (\"fromid\"=? and \"toid\"=?)) and \"isread\"=0 and \"username\"=?"
-        withArgumentsInArray:@[selfId, peerId, peerId, selfId, strUsername]];
+    [_database executeUpdate:@"update \"messages\" set \"isread\"=1 where \"toid\"=? and \"blog\"=?"
+        withArgumentsInArray:@[selfId, blogId]];
 }
 
 

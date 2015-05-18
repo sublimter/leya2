@@ -23,6 +23,7 @@
 #import "UserData.h"
 #import "ContactData.h"
 #import "FriendData.h"
+#import "NotificationData.h"
 #import "CDSessionManager.h"
 
 #import <AddressBook/AddressBook.h>
@@ -36,6 +37,7 @@
     NSArray *maryMessages;
     
     BOOL mbLoaded;
+    NSInteger unreadComment;
 }
 
 @end
@@ -80,48 +82,6 @@
     //
     [self.tabBar setTintColor:[UIColor whiteColor]];
     [self.tabBar setBackgroundImage:[UIImage imageNamed:@"nav_background.png"]];
-
-    
-    // set selected and unselected icons
-    // main
-//    UITabBarItem *item = [self.tabBar.items objectAtIndex:0];
-////    item.selectedImage = [[UIImage imageNamed:@"tab_favourite_selected.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-//    item.image = [[UIImage imageNamed:@"tab_favourite.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-////    [item setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:12], UITextAttributeFont, nil]
-////                        forState:UIControlStateNormal];
-//    
-//    item = [self.tabBar.items objectAtIndex:1];
-////    item.selectedImage = [[UIImage imageNamed:@"tab_find_selected.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-//    item.image = [[UIImage imageNamed:@"tab_find.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-////    [item setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:12], UITextAttributeFont, nil]
-////                        forState:UIControlStateNormal];
-//    
-//    item = [self.tabBar.items objectAtIndex:2];
-////    item.selectedImage = [[UIImage imageNamed:@"tab_chat_selected.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-//    item.image = [[UIImage imageNamed:@"tab_chat.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-////    [item setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:12], UITextAttributeFont, nil]
-////                        forState:UIControlStateNormal];
-//    
-//    item = [self.tabBar.items objectAtIndex:3];
-////    item.selectedImage = [[UIImage imageNamed:@"tab_me_selected.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-//    item.image = [[UIImage imageNamed:@"tab_me.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-////    [item setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:12], UITextAttributeFont, nil]
-////                        forState:UIControlStateNormal];
-    
-    
-//    // red dot
-//    UILabel *badge=[[UILabel alloc]init];
-//    badge.text = @"2";
-//    badge.textAlignment=NSTextAlignmentCenter;
-//    badge.frame=CGRectMake(15, 1, 20, 20);
-//    badge.layer.cornerRadius=10;
-//    badge.textColor=[UIColor whiteColor];
-//    badge.backgroundColor=[UIColor greenColor];
-//    [self.tabBar addSubview:badge];
-
-    
-//    UIViewController *viewController = self.selectedViewController;
-//    [MBProgressHUD showHUDAddedTo:viewController.view animated:YES];
     
     [self getInitParam];
     [self getCategoryInfo];
@@ -245,27 +205,20 @@
 
 - (void)messageUpdated:(NSNotification *)notification {
     
-    UserData *currentUser = [UserData currentUser];
+    UserData *currentUser = nil;
     
-    if (!currentUser) {
-        return;
+    if (notification) {
+        currentUser = (UserData *)[notification.userInfo objectForKey: @"targetUser"];
     }
     
     NSLog(@"%s", __PRETTY_FUNCTION__);
-    NSInteger nBadge = 0;
     
-//    for (UserData *uData in currentUser.maryFriend) {
-//        if (uData.mnRelation != USERRELATION_FRIEND) {
-//            continue;
-//        }
-//
-//        [uData getLatestMessage];
-////        NSDictionary *dictMsg = [[CDSessionManager sharedInstance] getLatestMessageForPeerId:uData.username];
-////        uData.mMsgLatest = dictMsg;
-////        uData.mnUnreadCount = [[CDSessionManager sharedInstance] getUnreadCountForPeerId:uData.username];
-//        
-//        nBadge += uData.mnUnreadCount;
-//    }
+    CommonUtils *utils = [CommonUtils sharedObject];
+    [utils getLatestChatInfo];
+    
+    UINavigationController *nvc = (UINavigationController *)[self.viewControllers objectAtIndex: 2];
+    NotificationViewController *viewController = (NotificationViewController*)[nvc.viewControllers objectAtIndex:0];
+    NSInteger nBadge = [viewController updateNotification: currentUser];
     
 //    UITabBarItem *item = [self.tabBar.items objectAtIndex:2];
 //    if (nBadge > 0) {
@@ -274,22 +227,15 @@
 //    else {
 //        [item setBadgeValue:nil];
 //    }
-//    
+    
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
     currentInstallation.badge = nBadge;
     [currentInstallation saveEventually];
     
     [UIApplication sharedApplication].applicationIconBadgeNumber = nBadge;
-
-//
-//    UIViewController *viewController = self.selectedViewController;
-//    if ([viewController isKindOfClass:[ChatViewController class]]) {
-//        ChatViewController *cvc = (ChatViewController *)viewController;
-//        [cvc reloadTable];
-//    }
     
-    CommonUtils *utils = [CommonUtils sharedObject];
-    [utils getLatestChatInfo];
+
+    //[viewController.mTableView reloadData];
     
 //    UIViewController *viewController = self.selectedViewController;
 //    if ([viewController isKindOfClass:[NotificationViewController class]]) {
@@ -298,7 +244,6 @@
 //    }
 
 }
-
 
 - (void)reloadTable {
     UINavigationController *navigationController = (UINavigationController *)self.selectedViewController;
