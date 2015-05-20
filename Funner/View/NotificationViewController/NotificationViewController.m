@@ -77,14 +77,6 @@ typedef enum {
     mnType = NOTIFY_CHAT;
     mnCommentType = NOTIFY_NEW;
     
-//    [self showRightMenu];
-    
-//    UIEdgeInsets edgeTable = self.mTableView.contentInset;
-//    edgeTable.top = 64;
-//    [self.mTableView setContentInset:edgeTable];
-//    
-//    [self.mTableView scrollRectToVisible:CGRectMake(0, 0, 320, 1) animated:NO];
-    
     maryNotifyData = [[NSMutableArray alloc] init];
     
     [self.mTableView setTableHeaderView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, self.mTableView.bounds.size.width, 0.01f)]];
@@ -204,10 +196,6 @@ typedef enum {
     [super viewWillDisappear:animated];
     
     [self.navigationController.navigationBar setHidden:NO];
-    
-    if (!mCurNotify) {
-        [self setNotificationAsNotNew];
-    }
 }
 
 - (void)setNotificationAsNotNew {
@@ -250,10 +238,6 @@ typedef enum {
 
 - (IBAction)onChangeSegment:(id)sender {
     mnType = (NotifyType)self.mSegment.selectedSegmentIndex;
-    if (mnType == NOTIFY_CHAT) {
-        [self setNotificationAsNotNew];
-        [self.unreadCommentDot setHidden: YES];
-    }
     
     mnCommentType = NOTIFY_NEW;
     
@@ -469,13 +453,10 @@ typedef enum {
             [self.mTableView reloadData];
         }
         else {
-            CommonUtils *utils = [CommonUtils sharedObject];
-            
-            NotificationData *notifyData = [utils.maryChatInfo objectAtIndex:mnCurChatIndex];
-            [[CDSessionManager sharedInstance] deleteMessagesForBlogId:notifyData.blog.objectId];
-            [utils.maryChatInfo removeObjectAtIndex:mnCurChatIndex];
+            NotificationData *notifyData = [maryNotifyData objectAtIndex:mnCurChatIndex];
+            [notifyData deleteInBackground];
+            [maryNotifyData removeObjectAtIndex:mnCurChatIndex];
             [self.mTableView reloadData];
-            
         }
 
     }
