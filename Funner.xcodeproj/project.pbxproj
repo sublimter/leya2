@@ -325,6 +325,7 @@
 		5EFC064B1A3981D800150E28 /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EFC06371A3981D800150E28 /* UIImageView+WebCache.m */; };
 		5EFC064C1A3981D800150E28 /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EFC06391A3981D800150E28 /* UIView+WebCacheOperation.m */; };
 		D20357BC1AD9001A00F50284 /* libPods-Funner.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D20357BB1AD9001A00F50284 /* libPods-Funner.a */; };
+		D2BCE01D1B0E314B007B59A7 /* AppIcon1024.png in Resources */ = {isa = PBXBuildFile; fileRef = D2BCE01C1B0E314B007B59A7 /* AppIcon1024.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -805,6 +806,7 @@
 		5EFC06391A3981D800150E28 /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
 		C7C437E28E96E1433ED443B9 /* Pods-Funner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Funner.release.xcconfig"; path = "Pods/Target Support Files/Pods-Funner/Pods-Funner.release.xcconfig"; sourceTree = "<group>"; };
 		D20357BB1AD9001A00F50284 /* libPods-Funner.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-Funner.a"; path = "build/Debug-iphoneos/libPods-Funner.a"; sourceTree = "<group>"; };
+		D2BCE01C1B0E314B007B59A7 /* AppIcon1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon1024.png; sourceTree = "<group>"; };
 		F8094F9204101E0500DC04DB /* Pods-Funner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Funner.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Funner/Pods-Funner.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1159,6 +1161,7 @@
 		009147831A0C6F37004BFF3A /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				D2BCE01C1B0E314B007B59A7 /* AppIcon1024.png */,
 				5EACB2001ACFCECB00FE4FF0 /* home_like_white.png */,
 				5EACB2011ACFCECB00FE4FF0 /* home_like_white@2x.png */,
 				5EACB2021ACFCECB00FE4FF0 /* home_like_white@3x.png */,
@@ -2038,6 +2041,7 @@
 				5EDA1E501A780832009FC3E7 /* friend_friend@3x.png in Resources */,
 				00D023F61A10B73000E0F4E0 /* camera_net@2x.png in Resources */,
 				0081E71A1A0FACF900E2A1C6 /* profile_friend_selected@2x.png in Resources */,
+				D2BCE01D1B0E314B007B59A7 /* AppIcon1024.png in Resources */,
 				5EDA1E511A780832009FC3E7 /* friend_invite@2x.png in Resources */,
 				5E807AAB1A62243E0053695D /* FullImageView.xib in Resources */,
 				5E85ABC11AD38DAC0062ED3B /* startup3@3x.jpg in Resources */,

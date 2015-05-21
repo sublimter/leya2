@@ -144,7 +144,7 @@
     TencentOAuth *auth = [[TencentOAuth alloc] initWithAppId:@"1104504124" andDelegate:nil];
 //    QQApiTextObject *txtObj = [QQApiTextObject objectWithText:@"邀请内容"];
     
-    UIImage *imgLogo = [UIImage imageNamed:@"icon60.png"];
+    UIImage *imgLogo = [UIImage imageNamed:@"AppIcon1024.png"];
     NSData *imageData = UIImageJPEGRepresentation(imgLogo, 1.f);
     
     QQApiNewsObject *newsObj = [QQApiNewsObject  objectWithURL:[NSURL URLWithString:@"https://itunes.apple.com/cn/app/le-ya/id970836065"]
