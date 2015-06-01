@@ -218,30 +218,7 @@
     
     UINavigationController *nvc = (UINavigationController *)[self.viewControllers objectAtIndex: 2];
     NotificationViewController *viewController = (NotificationViewController*)[nvc.viewControllers objectAtIndex:0];
-    NSInteger nBadge = [viewController updateNotification: currentUser];
-    
-//    UITabBarItem *item = [self.tabBar.items objectAtIndex:2];
-//    if (nBadge > 0) {
-//        [item setBadgeValue:[NSString stringWithFormat:@"%ld", (long)nBadge]];
-//    }
-//    else {
-//        [item setBadgeValue:nil];
-//    }
-    
-    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
-    currentInstallation.badge = nBadge;
-    [currentInstallation saveEventually];
-    
-    [UIApplication sharedApplication].applicationIconBadgeNumber = nBadge;
-    
-
-    //[viewController.mTableView reloadData];
-    
-//    UIViewController *viewController = self.selectedViewController;
-//    if ([viewController isKindOfClass:[NotificationViewController class]]) {
-//        NotificationViewController *nvc = (NotificationViewController *)viewController;
-////        [nvc reloadTable];
-//    }
+    [viewController updateNotification: currentUser];
 
 }
 
@@ -268,9 +245,6 @@
 }
 
 - (void)getBlog {
-//    if ([UserData currentUser]) {
-//        return;
-//    }
     
     CommonUtils *utils = [CommonUtils sharedObject];
     if (!utils.mbContactReady || !mCurrentUser.mbGotNear) {
@@ -279,10 +253,6 @@
     
     UINavigationController *navigationController = (UINavigationController *)self.selectedViewController;
     UIViewController *viewController = [navigationController.viewControllers objectAtIndex:0];
-    
-//    UIViewController *viewController = [self.viewControllers objectAtIndex:1];
-//    MainNavigationController *navController = (MainNavigationController *)viewController;
-//    viewController = [navController.viewControllers objectAtIndex:0];
     
     if ([viewController isKindOfClass:[HobbyViewController class]]) {
         HobbyViewController *hvc = (HobbyViewController *)viewController;

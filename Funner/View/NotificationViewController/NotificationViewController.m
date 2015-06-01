@@ -124,7 +124,7 @@ typedef enum {
     // 设置通知的red dot。
     NSInteger unreadChatCount = [[CDSessionManager sharedInstance] getUnreadCountForPeerId: nil];
     if (unreadChatCount > 0) {
-        self.unreadChatDot.text = [NSString stringWithFormat:@"%ld", unreadChatCount];
+        self.unreadChatDot.text = [NSString stringWithFormat:@"%ld", (long)unreadChatCount];
         [self.unreadChatDot setHidden: NO];
     } else {
         [self.unreadChatDot setHidden: YES];
@@ -160,7 +160,7 @@ typedef enum {
             }
             
             if (unreadComment > 0) {
-                self.unreadCommentDot.text = [NSString stringWithFormat:@"%ld", unreadComment];
+                self.unreadCommentDot.text = [NSString stringWithFormat:@"%ld", (long)unreadComment];
                 [self.unreadCommentDot setHidden: NO];
                 
 
@@ -173,10 +173,16 @@ typedef enum {
             CommonUtils *utils = [CommonUtils sharedObject];
             UITabBarItem *item = [utils.mTabbarController.tabBar.items objectAtIndex: 2];
             if (totalUnreadCount > 0) {
-                [item setBadgeValue:[NSString stringWithFormat:@"%ld", totalUnreadCount]];
+                [item setBadgeValue:[NSString stringWithFormat:@"%ld", (long)totalUnreadCount]];
             } else {
                 [item setBadgeValue:nil];
             }
+            
+            PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+            currentInstallation.badge = totalUnreadCount;
+            [currentInstallation saveEventually];
+            
+            [UIApplication sharedApplication].applicationIconBadgeNumber = totalUnreadCount;
             
             [self.mTableView reloadData];
         }

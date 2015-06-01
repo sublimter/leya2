@@ -75,33 +75,6 @@ static BOOL initialized = NO;
     [AVGroup setDefaultDelegate:self];
     [_session openWithPeerId:[AVUser currentUser].objectId];
 
-//    FMResultSet *rs = [_database executeQuery:@"select \"type\", \"otherid\" from \"sessions\""];
-//    NSMutableArray *peerIds = [[NSMutableArray alloc] init];
-//    while ([rs next]) {
-//        NSInteger type = [rs intForColumn:@"type"];
-//        NSString *otherid = [rs stringForColumn:@"otherid"];
-//        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-//        [dict setObject:[NSNumber numberWithInteger:type] forKey:@"type"];
-//        [dict setObject:otherid forKey:@"otherid"];
-//        if (type == CDChatRoomTypeSingle) {
-//            [peerIds addObject:otherid];
-//        } else if (type == CDChatRoomTypeGroup) {
-//            [dict setObject:[NSNumber numberWithInteger:type] forKey:@"type"];
-//            [dict setObject:otherid forKey:@"otherid"];
-//            
-//            AVGroup *group = [AVGroup getGroupWithGroupId:otherid session:_session];
-//            group.delegate = self;
-//            [group join];
-//        }
-//        [_chatRooms addObject:dict];
-//    }
-//    [_session watchPeerIds:peerIds callback:^(BOOL succeeded, NSError *error) {
-//        if (succeeded) {
-//            NSLog(@"watch success");
-//        } else {
-//            NSLog(@"%@", error);
-//        }
-//    }];
     initialized = YES;
 }
 
@@ -211,7 +184,7 @@ static BOOL initialized = NO;
     NSData *data = [NSJSONSerialization dataWithJSONObject:dict options:0 error:&error];
     NSString *payload = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     AVMessage *messageObject = [AVMessage messageForPeerWithSession:_session toPeerId:peerId payload:payload];
-    [_session sendMessage:messageObject requestReceipt:YES];
+    [_session sendMessage: messageObject transient: NO];
     
     dict = [NSMutableDictionary dictionary];
     [dict setObject:_session.peerId forKey:@"fromid"];
